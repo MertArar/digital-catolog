@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import "flag-icons/css/flag-icons.min.css";
 import "./globals.css";
-import Header from "../components/layout/Header";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Dijital Katalog",
@@ -17,6 +19,7 @@ export default function RootLayout({
       <body>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

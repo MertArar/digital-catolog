@@ -14,31 +14,38 @@ export default function ProductCard({ product }: ProductCardProps) {
         </span>
       </div>
 
-      <div className="p-5">
+      <div className="p-6">
         <span className="mb-3 inline-flex rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-600">
           {product.category}
         </span>
 
-        <h3 className="text-lg font-semibold text-neutral-950">
+        <h3 className="text-xl font-semibold text-neutral-950">
           {product.name}
         </h3>
 
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">
+        <p className="mt-3 line-clamp-2 text-sm leading-6 text-neutral-600">
           {product.description}
         </p>
 
-        <div className="mt-5 flex items-center justify-between gap-3">
+        <div className="mt-6 flex items-center justify-between gap-4">
           <Link
             href={product.href}
-            className="inline-flex items-center text-sm font-semibold text-neutral-950"
+            className="group/view relative inline-flex items-center gap-2 overflow-hidden pb-2 text-sm font-semibold text-neutral-950"
           >
-            Ürünü İncele
-            <span className="ml-2 transition group-hover:translate-x-1">→</span>
+            <span>Ürünü İncele</span>
+
+            <span className="inline-block -rotate-45 text-base leading-none transition-transform duration-300 ease-out group-hover/view:rotate-0">
+              →
+            </span>
+
+            <span className="absolute bottom-0 left-0 h-px w-full bg-neutral-300" />
+
+            <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-neutral-950 transition-transform duration-500 ease-out group-hover/view:scale-x-100" />
           </Link>
 
           <Link
             href="/quote"
-            className="rounded-full border border-neutral-200 px-3 py-1.5 text-xs font-semibold text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
+            className="rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
           >
             Teklif Al
           </Link>

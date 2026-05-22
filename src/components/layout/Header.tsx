@@ -1,10 +1,11 @@
 import Link from "next/link";
+import LanguageDropdown from "./LanguageDropdown";
 import MobileMenu from "./MobileMenu";
 
 const navLinks = [
   { label: "Ana Sayfa", href: "/" },
   { label: "Ürünler", href: "/products" },
-  { label: "Teklif Al", href: "/quote" },
+  { label: "Teslimat", href: "/delivery" },
   { label: "İletişim", href: "/contact" },
 ];
 
@@ -40,13 +41,17 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center lg:flex">
+        <div className="hidden items-center gap-4 lg:flex">
           <Link
             href="/quote"
             className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
           >
             Teklif Al
           </Link>
+
+          <span className="h-6 w-px bg-neutral-200" />
+
+          <LanguageDropdown />
         </div>
 
         <MobileMenu navLinks={navLinks} />

@@ -1,7 +1,7 @@
 import QuoteForm from "@/components/quote/QuoteForm";
 import QuoteInfo from "@/components/quote/QuoteInfo";
 import QuoteIntro from "@/components/quote/QuoteIntro";
-import { products } from "@/data/catalog";
+import { productCategories, products } from "@/data/catalog";
 
 type QuotePageProps = {
   searchParams?: Promise<{
@@ -22,6 +22,7 @@ export default async function QuotePage({ searchParams }: QuotePageProps) {
           <div className="h-fit lg:sticky lg:top-28">
             <QuoteForm
               products={products}
+              categories={productCategories}
               selectedProductId={selectedProductId}
             />
           </div>

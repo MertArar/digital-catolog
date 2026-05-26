@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const footerLinks = [
@@ -13,10 +14,22 @@ const footerLinks = [
   {
     title: "Katalog",
     links: [
-      { label: "Ofis Mobilyaları", href: "/products?category=Ofis%20Mobilyaları" },
-      { label: "Ahşap Ürünler", href: "/products?category=Ahşap%20Ürünler" },
-      { label: "Endüstriyel Ürünler", href: "/products?category=Endüstriyel%20Ürünler" },
-      { label: "Dekoratif Ürünler", href: "/products?category=Dekoratif%20Ürünler" },
+      {
+        label: "Ofis Mobilyaları",
+        href: "/products?category=Ofis%20Mobilyaları",
+      },
+      {
+        label: "Ahşap Ürünler",
+        href: "/products?category=Ahşap%20Ürünler",
+      },
+      {
+        label: "Endüstriyel Ürünler",
+        href: "/products?category=Endüstriyel%20Ürünler",
+      },
+      {
+        label: "Dekoratif Ürünler",
+        href: "/products?category=Dekoratif%20Ürünler",
+      },
     ],
   },
   {
@@ -96,14 +109,32 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-neutral-100 pt-6 md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 flex flex-col gap-5 border-t border-neutral-100 pt-6 md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-neutral-500">
             © 2026 Dijital Katalog. Tüm hakları saklıdır.
           </p>
 
-          <p className="text-sm text-neutral-500">
-            Modern katalog ve teklif yönetim altyapısı.
-          </p>
+          <div className="flex w-fit items-center gap-3">
+            <span className="text-sm font-medium text-neutral-500">
+              Developed by
+            </span>
+
+            <a
+              href="https://artechyazilim.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Artech Yazılım web sitesini yeni sekmede aç"
+              className="group inline-flex items-center"
+            >
+              <Image
+                src="/artech-logo.png"
+                alt="Artech Yazılım"
+                width={150}
+                height={40}
+                className="h-8 w-auto grayscale opacity-60 transition duration-500 ease-out group-hover:grayscale-0 group-hover:opacity-100"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

@@ -5,6 +5,11 @@ export type ProductCategory = {
   href: string;
 };
 
+export type ProductImage = {
+  src: string;
+  alt: string;
+};
+
 export type Product = {
   id: number;
   name: string;
@@ -13,6 +18,7 @@ export type Product = {
   longDescription: string;
   href: string;
   isFeatured: boolean;
+  images?: ProductImage[];
   features: string[];
   specs: {
     label: string;

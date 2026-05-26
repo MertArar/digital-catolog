@@ -44,7 +44,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </Link>
 
           <Link
-            href="/quote"
+            href={`/quote?product=${product.id}`}
             className="rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-950 hover:text-white"
           >
             Teklif Al

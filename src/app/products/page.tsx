@@ -1,17 +1,20 @@
 import ProductsIntro from "@/components/products/ProductsIntro";
 import ProductSidebar from "@/components/products/ProductSidebar";
 import ProductGrid from "@/components/products/ProductGrid";
+import ProductSearch from "@/components/products/ProductSearch";
 import { productCategories, products } from "@/data/catalog";
 
 type ProductsPageProps = {
   searchParams?: Promise<{
     category?: string | string[];
+    q?: string;
   }>;
 };
 
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
   const params = await searchParams;
   const categoryParam = params?.category;
+  const searchQuery = params?.q?.trim() ?? "";
 
   const selectedCategories = Array.isArray(categoryParam)
     ? categoryParam
@@ -19,12 +22,30 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       ? [categoryParam]
       : [];
 
-  const filteredProducts =
-    selectedCategories.length > 0
-      ? products.filter((product) =>
-          selectedCategories.includes(product.category)
-        )
-      : products;
+  const normalizedSearchQuery = searchQuery.toLocaleLowerCase("tr-TR");
+
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory =
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(product.category);
+
+    const searchableText = [
+      product.name,
+      product.category,
+      product.description,
+      product.longDescription,
+      ...product.features,
+      ...product.specs.map((spec) => `${spec.label} ${spec.value}`),
+    ]
+      .join(" ")
+      .toLocaleLowerCase("tr-TR");
+
+    const matchesSearch =
+      !normalizedSearchQuery ||
+      searchableText.includes(normalizedSearchQuery);
+
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <main className="min-h-screen bg-neutral-50">
@@ -35,9 +56,17 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           <ProductSidebar
             categories={productCategories}
             selectedCategories={selectedCategories}
+            searchQuery={searchQuery}
           />
 
-          <ProductGrid products={filteredProducts} />
+          <div className="space-y-6">
+            <ProductSearch
+              searchQuery={searchQuery}
+              selectedCategories={selectedCategories}
+            />
+
+            <ProductGrid products={filteredProducts} searchQuery={searchQuery} />
+          </div>
         </div>
       </section>
     </main>

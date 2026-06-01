@@ -7,11 +7,13 @@ import type { ProductCategory } from "@/data/catalog";
 type ProductSidebarProps = {
   categories: ProductCategory[];
   selectedCategories?: string[];
+  searchQuery?: string;
 };
 
 export default function ProductSidebar({
   categories,
   selectedCategories = [],
+  searchQuery = "",
 }: ProductSidebarProps) {
   const router = useRouter();
 
@@ -28,6 +30,24 @@ export default function ProductSidebar({
     setCheckedCategories(nextSelectedCategories);
   }, [selectedCategoriesKey]);
 
+  const createProductsUrl = (categories: string[]) => {
+    const params = new URLSearchParams();
+
+    categories.forEach((category) => {
+      params.append("category", category);
+    });
+
+    const trimmedSearchQuery = searchQuery.trim();
+
+    if (trimmedSearchQuery) {
+      params.set("q", trimmedSearchQuery);
+    }
+
+    const queryString = params.toString();
+
+    return queryString ? `/products?${queryString}` : "/products";
+  };
+
   const toggleCategory = (categoryName: string) => {
     setCheckedCategories((prev) => {
       if (prev.includes(categoryName)) {
@@ -39,23 +59,12 @@ export default function ProductSidebar({
   };
 
   const applyFilters = () => {
-    if (checkedCategories.length === 0) {
-      router.push("/products");
-      return;
-    }
-
-    const params = new URLSearchParams();
-
-    checkedCategories.forEach((category) => {
-      params.append("category", category);
-    });
-
-    router.push(`/products?${params.toString()}`);
+    router.push(createProductsUrl(checkedCategories));
   };
 
   const clearFilters = () => {
     setCheckedCategories([]);
-    router.push("/products");
+    router.push(createProductsUrl([]));
   };
 
   return (
